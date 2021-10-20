@@ -26,7 +26,7 @@ const App = () => {
       const todoData = await API.graphql(graphqlOperation(listTodos))
       const todos = todoData.data.listTodos.items
       setTodos(todos)
-    } catch (err) { console.log('error fetching todos') }
+    } catch (err) { console.log('[App] Error fetching todos!') }
   }
 
   async function addTodo() {
@@ -37,13 +37,13 @@ const App = () => {
       setFormState(initialState)
       await API.graphql(graphqlOperation(createTodo, {input: todo}))
     } catch (err) {
-      console.log('error creating todo:', err)
+      console.log('[App] Error creating todo:', err)
     }
   }
 
   return (
     <div style={styles.container}>
-      <h2>Amplify Todos</h2>
+      <h2>My Budget</h2>
       <input
         onChange={event => setInput('name', event.target.value)}
         style={styles.input}
