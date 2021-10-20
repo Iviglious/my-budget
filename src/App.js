@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
+import Amplify, { API, graphqlOperation, Auth } from 'aws-amplify'
 import { createTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
 import { withAuthenticator } from '@aws-amplify/ui-react'
@@ -37,7 +37,21 @@ const App = () => {
       setFormState(initialState)
       await API.graphql(graphqlOperation(createTodo, {input: todo}))
     } catch (err) {
-      console.log('[App] Error creating todo:', err)
+      console.log('[App] Error creating todo: ', err)
+    }
+  }
+
+  async function signOut() {
+    //await Auth.signOut()
+    //.then(data => console.log('[App] Sign out data: ', data))
+    //.catch(err => console.log('[App] Error signing out: ', err))
+    try {
+      await Auth.signOut()
+      console.log('[App] Signed out.')
+    }
+    catch(err)
+    {
+      console.log('[App] Error signing out: ', err)
     }
   }
 
@@ -65,6 +79,7 @@ const App = () => {
           </div>
         ))
       }
+      <button style={styles.button} onClick={signOut}>Sign Out</button>
     </div>
   )
 }
