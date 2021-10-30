@@ -42,12 +42,10 @@ const App = () => {
   }
 
   async function signOut() {
-    //await Auth.signOut()
-    //.then(data => console.log('[App] Sign out data: ', data))
-    //.catch(err => console.log('[App] Error signing out: ', err))
     try {
       await Auth.signOut()
       console.log('[App] Signed out.')
+      window.location.reload()
     }
     catch(err)
     {
